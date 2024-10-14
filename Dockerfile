@@ -13,10 +13,10 @@ RUN pnpm i && pnpm build
 
 FROM alpine:3.20.3
 VOLUME /app
+COPY --from=golang /backend/rustdesk-api-server-pro /app/rustdesk-api-server-pro
+COPY --from=golang /backend/server.yaml /app/server.yaml
+COPY --from=node /frontend/dist /app/dist
 WORKDIR /app
-COPY --from=golang /backend/rustdesk-api-server-pro .
-COPY --from=golang /backend/server.yaml .
-COPY --from=node /frontend/dist ./dist
 RUN apk add tzdata
 RUN ln -s /app/rustdesk-api-server-pro /usr/local/bin/rustdesk-api-server-pro
 RUN ./rustdesk-api-server-pro sync
