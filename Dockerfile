@@ -12,6 +12,7 @@ RUN npm install -g pnpm
 RUN pnpm i && pnpm build
 
 FROM alpine:3.20.3
+VOLUME /app
 WORKDIR /app
 COPY --from=golang /backend/rustdesk-api-server-pro .
 COPY --from=golang /backend/server.yaml .
